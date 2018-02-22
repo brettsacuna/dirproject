@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5a36f3d4-b1cc-487b-971a-15d80297c047">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#7ABFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="query_items_proyecto" uuid="df2595fb-396a-428e-aa5b-93363055e343">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+		<parameter name="codigo_snip" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{codigo_snip}]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[select 	
+	item_proyecto.item_descripcion,
+	(case when item_proyecto.etapa_proyecto = '1' then 'En Curso'
+	when item_proyecto.etapa_proyecto = '2' then 'Sin Ejecución'
+	when item_proyecto.etapa_proyecto = '3' then 'Paralizado' 
+	when item_proyecto.etapa_proyecto = '4' then 'Desierto' else 'Finalizado' end ) as etapa_proyecto,
+	(case when item_proyecto.estado_proyecto = '1' then 'Activo' 
+		else 'Inactivo' end) as estado_proyecto,
+	item_proyecto.presupuesto_expediente_tecnico,
+	item_proyecto.valor_referencial
+	
+from 
+	datos_proyecto,item_proyecto
+where 
+	datos_proyecto.id_proyecto = item_proyecto.id_proyecto and 	
+	datos_proyecto.activo = 1 and 
+	item_proyecto.activo = 1 and
+	datos_proyecto.codigo_snip = $P{codigo_snip} ;]]>
+		</queryString>
+		<field name="item_descripcion" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="item_descripcion"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="item_proyecto"/>
+		</field>
+		<field name="etapa_proyecto" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="etapa_proyecto"/>
+		</field>
+		<field name="estado_proyecto" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="estado_proyecto"/>
+		</field>
+		<field name="presupuesto_expediente_tecnico" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="presupuesto_expediente_tecnico"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="item_proyecto"/>
+		</field>
+		<field name="valor_referencial" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="valor_referencial"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="item_proyecto"/>
+		</field>
+	</subDataset>
+	<parameter name="codigo_snip" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{codigo_snip}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 
+	datos_proyecto.codigo_snip,
+	datos_proyecto.codigo_proyecto,
+	datos_proyecto.nombre_pip,
+	datos_proyecto.consultor_preinversion,
+	datos_proyecto.consultor_expediente_tecnico,
+	datos_proyecto.presupuesto_viabilidad,
+	item_proyecto.item_descripcion,
+	(case when item_proyecto.etapa_proyecto = '1' then 'En Curso'
+	when item_proyecto.etapa_proyecto = '2' then 'Sin Ejecución'
+	when item_proyecto.etapa_proyecto = '3' then 'Paralizado' 
+	when item_proyecto.etapa_proyecto = '4' then 'Desierto' else 'Finalizado' end ) as etapa_proyecto,
+	(case when item_proyecto.estado_proyecto = '1' then 'Activo' 
+		else 'Inactivo' end) as estado_proyecto,
+	item_proyecto.presupuesto_expediente_tecnico,
+	item_proyecto.valor_referencial
+	
+from 
+	datos_proyecto,item_proyecto
+where 
+	datos_proyecto.id_proyecto = item_proyecto.id_proyecto and 	
+	datos_proyecto.activo = 1 and 
+	item_proyecto.activo = 1 and
+	datos_proyecto.codigo_snip = $P{codigo_snip};]]>
+	</queryString>
+	<field name="codigo_snip" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codigo_snip"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="codigo_proyecto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codigo_proyecto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="nombre_pip" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombre_pip"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="consultor_preinversion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="consultor_preinversion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="consultor_expediente_tecnico" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="consultor_expediente_tecnico"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="presupuesto_viabilidad" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="presupuesto_viabilidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="item_descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="item_descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_proyecto"/>
+	</field>
+	<field name="etapa_proyecto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="etapa_proyecto"/>
+	</field>
+	<field name="estado_proyecto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estado_proyecto"/>
+	</field>
+	<field name="presupuesto_expediente_tecnico" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="presupuesto_expediente_tecnico"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_proyecto"/>
+	</field>
+	<field name="valor_referencial" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="valor_referencial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_proyecto"/>
+	</field>
+	<variable name="consultor_preinversion_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{consultor_preinversion}]]></variableExpression>
+	</variable>
+	<group name="codigo_snip">
+		<groupExpression><![CDATA[$F{codigo_snip}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="150" y="20" width="323" height="51" forecolor="#000099" uuid="f7fd033e-cf9d-42d6-b8bc-fbcfcfa2efd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ficha del Proyecto de Inversión]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="100" width="555" height="1" uuid="e970e984-d38f-4b0a-a54b-2dba80fe9ed5"/>
+			</line>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="387" y="80" width="168" height="20" uuid="3dcfdcf0-8ba2-43ac-acbb-1e2ad1201c74"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="20" y="10" width="100" height="40" uuid="6c5e6365-c1bb-4a64-bdc7-e141adfe4b0f"/>
+				<imageExpression><![CDATA["logo-itp.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="182" splitType="Stretch">
+			<textField>
+				<reportElement x="160" y="30" width="384" height="20" uuid="4ff4cbdf-af4f-4dbc-97d6-cdb13a40686e"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_proyecto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="50" y="30" width="106" height="20" uuid="abc7fa5b-561c-4381-8662-1bd2b03d7c7c"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo Proyecto :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="10" width="86" height="20" uuid="2cc79805-26a4-47ac-a9e2-8d7b82d9a984"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo SNIP :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="10" width="384" height="20" uuid="8c5adeb7-876f-4e6a-b563-9b4e9682c5dc"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_snip}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="110" width="76" height="20" uuid="4d94b7cd-11f6-4852-8ac9-0e49045b9caa"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre PIP :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="110" width="383" height="70" uuid="02200d13-2f12-4607-ad83-4dbbd7488002"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_pip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="70" width="383" height="20" uuid="fe453e19-e0df-4710-bcc1-df95db2c8459"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consultor_preinversion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="70" width="136" height="20" uuid="fbb2eefa-38d2-4a00-a88f-00ec24288b92"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consultor preinversión : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="90" width="146" height="20" uuid="28d7ece9-5bdd-48fe-98d6-823de7137c60"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consultor. Exp. Técnico :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="90" width="385" height="20" uuid="389705a6-1c7c-4ba2-a3e1-ec606a7cb359"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consultor_expediente_tecnico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="50" width="136" height="20" uuid="512fbffa-aca9-4bd7-97c9-48c58b2769ff"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presupuesto Viabilidad: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="50" width="384" height="20" uuid="7c4f8e8f-f99d-491b-ba88-d91f24c06652"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{presupuesto_viabilidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="95">
+			<componentElement>
+				<reportElement x="3" y="0" width="552" height="90" uuid="46f2fe8e-d240-43c1-8c97-fb28337f4aa1">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="query_items_proyecto" uuid="baa66b6c-c330-4680-acc0-2af592be6e66">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="180" uuid="8db6c774-78a1-4109-8bd5-95f1bf61dee3">
+						<jr:tableHeader style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="180" height="30" uuid="d866d2d9-7c06-46ff-bc53-69827117542b"/>
+								<text><![CDATA[item_descripcion]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="180" height="30" uuid="07ea7d17-84f2-42c2-b5de-4ab9def6939d"/>
+								<textFieldExpression><![CDATA[$F{item_descripcion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="0ebf2ba4-1d60-4688-9a97-a63a4eb528a2">
+						<jr:tableHeader style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="30" uuid="d31354c0-5230-4db4-8498-f93302aea297"/>
+								<text><![CDATA[etapa_proyecto]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="70" height="30" uuid="1f1d73f5-9344-484d-a373-f16ea9eb2416"/>
+								<textFieldExpression><![CDATA[$F{etapa_proyecto}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="27442895-7511-4975-b163-b50a2b4eec4e">
+						<jr:tableHeader style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="e8f051c8-bfbd-432f-b185-0eab776c317e"/>
+								<text><![CDATA[estado_proyecto]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="245be9b4-4aa2-4bc0-925e-03d611d37986"/>
+								<textFieldExpression><![CDATA[$F{estado_proyecto}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="28951ac1-58f5-4139-8b30-fffa6bdb6c61">
+						<jr:tableHeader style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="59af5c58-fac6-48e8-bf82-6967f64f2506"/>
+								<text><![CDATA[presupuesto_expediente_tecnico]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="30" uuid="1d46e1c4-c633-46ca-ba7e-1237d4a8752e"/>
+								<textFieldExpression><![CDATA[$F{presupuesto_expediente_tecnico}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="76bbc8d0-1e6d-41bc-9067-c31e9794c992">
+						<jr:tableHeader style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="94a680e7-7291-4b5a-9541-a7008a8e6401"/>
+								<text><![CDATA[valor_referencial]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="30" uuid="ef840c55-0366-4356-853c-5cf04250225e"/>
+								<textFieldExpression><![CDATA[$F{valor_referencial}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="42" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="20" splitType="Stretch"/>
+	</summary>
+</jasperReport>

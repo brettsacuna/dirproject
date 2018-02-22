@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_valorizaciones" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2634249b-04c3-486b-8651-9318370689f4">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="276"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="712"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="codigo_snip" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select
+	dp.codigo_snip, 
+	dp.codigo_proyecto, 
+	dp.nombre_pip, 
+	dp.presupuesto_viabilidad, 
+	dp.consultor_preinversion, 
+	dp.consultor_expediente_tecnico, 
+	dp.beneficiarios_directos,
+    (case when ps.proceso_seleccion_pertenencia = 1 then 'Bien' 
+    when ps.proceso_seleccion_pertenencia = 2 then 'Consultoría de Obra' 
+    when ps.proceso_seleccion_pertenencia = 3 then 'Obra' 
+    else 'Servicio' end ) as proceso_seleccion_pertenencia,
+	psi.item_descripcion,
+	cpsi.id_contrato_proceso_seleccion_item,
+	cpsi.numero_contrato,
+	date_format(v.periodo,'%b-%Y') as periodo,
+	v.valorizacion_programada,
+	v.valorizacion_ejecutada,
+	v.valorizacion_acumulada,
+	v.porcentaje_valorizado_acumulado
+from
+	datos_proyecto as dp, 
+	proceso_seleccion as ps,
+	proceso_seleccion_item as psi,
+	contrato_proceso_seleccion_item as cpsi,
+	valorizacion as v
+where 
+	dp.id_proyecto = ps.id_proyecto and
+	ps.id_proceso_seleccion = psi.id_proceso_seleccion and
+	psi.id_proceso_seleccion_item = cpsi.id_proceso_seleccion_item and
+	cpsi.id_contrato_proceso_seleccion_item = v.id_contrato_proceso_seleccion_item and
+	dp.activo = 1 and ps.activo = 1 and psi.activo = 1 and cpsi.activo = 1 and v.activo = 1 and
+	dp.codigo_snip =  $P{codigo_snip}]]>
+	</queryString>
+	<field name="codigo_snip" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codigo_snip"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="codigo_proyecto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codigo_proyecto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="nombre_pip" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombre_pip"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="presupuesto_viabilidad" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="presupuesto_viabilidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="consultor_preinversion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="consultor_preinversion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="consultor_expediente_tecnico" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="consultor_expediente_tecnico"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="beneficiarios_directos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="beneficiarios_directos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="proceso_seleccion_pertenencia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="proceso_seleccion_pertenencia"/>
+	</field>
+	<field name="item_descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="item_descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proceso_seleccion_item"/>
+	</field>
+	<field name="id_contrato_proceso_seleccion_item" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id_contrato_proceso_seleccion_item"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="contrato_proceso_seleccion_item"/>
+	</field>
+	<field name="numero_contrato" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numero_contrato"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="contrato_proceso_seleccion_item"/>
+	</field>
+	<field name="periodo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="periodo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="valorizacion"/>
+	</field>
+	<field name="valorizacion_programada" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="valorizacion_programada"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="valorizacion"/>
+	</field>
+	<field name="valorizacion_ejecutada" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="valorizacion_ejecutada"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="valorizacion"/>
+	</field>
+	<field name="valorizacion_acumulada" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="valorizacion_acumulada"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="valorizacion"/>
+	</field>
+	<field name="porcentaje_valorizado_acumulado" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="porcentaje_valorizado_acumulado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="valorizacion"/>
+	</field>
+	<group name="por_CONTRATOS">
+		<groupExpression><![CDATA[$F{id_contrato_proceso_seleccion_item}]]></groupExpression>
+		<groupHeader>
+			<band height="102">
+				<staticText>
+					<reportElement x="10" y="9" width="80" height="23" uuid="8b7a2b3e-8bac-4189-bed5-a09b05be4e7a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ítem:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="100" y="10" width="440" height="20" uuid="3e2d7f68-44db-4fe4-a84b-73283daa67a8"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{item_descripcion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="100" y="33" width="440" height="20" uuid="37987c07-86e7-4417-ac3e-4cee30b495ef"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{numero_contrato}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="10" y="32" width="80" height="23" uuid="dcf79a14-5568-4685-beeb-3d53c878d85d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Contrato:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="72" width="90" height="30" uuid="c504eca5-11b3-4c4c-9d59-8e1a804fb043"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valorización Programada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="40" y="72" width="80" height="30" uuid="871b2b8e-c700-4180-9d3d-327e516c72f2"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Periodo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="210" y="72" width="100" height="30" uuid="b7676b45-fb00-45bb-aae7-39b154809f55"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valorización Ejecutada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="310" y="72" width="99" height="30" uuid="e61f26c4-0564-4259-8cb1-696d672c6d5e"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valorización Acumulada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="409" y="72" width="90" height="30" uuid="48b0c1db-2b1a-472e-835e-3be29a6dc917"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[% Valorización Acumulada]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="60" width="550" height="1" uuid="1b5fc9c3-4ab8-4270-a626-373b32950ad9"/>
+				</line>
+				<line>
+					<reportElement x="1" y="4" width="550" height="1" uuid="0d548e05-e284-49c7-a9ae-b16f4265c733"/>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="311" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="10" width="110" height="50" uuid="9e8d3f5b-3d78-4c89-abfe-4cc653098d4a"/>
+				<imageExpression><![CDATA["logo-itp.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="150" y="20" width="330" height="49" forecolor="#000099" uuid="93af9ea1-3ae4-4d7e-89a2-78459bbf1a68"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="21" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Valorizaciones]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="422" y="80" width="118" height="20" uuid="117e5399-a3d5-4b3f-ad1f-d11238bf3c4e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="110" width="550" height="1" uuid="d38b8d3c-ee97-4902-972b-f25a38c2b170"/>
+			</line>
+			<staticText>
+				<reportElement x="60" y="140" width="110" height="20" uuid="586e3532-c1b2-452b-87c3-dd201a5c732d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código del Proyecto :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="160" width="90" height="20" uuid="cf491feb-9872-4e58-b937-38fdb71ab469"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre del PIP :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="210" width="148" height="20" uuid="ee41d634-a4a7-4c67-a444-69a21544f8ab"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presupuesto de Viabilidad :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="230" width="171" height="20" uuid="169456e4-250a-485a-8726-0d89817889f3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consultor Expediente Técnico :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="250" width="129" height="20" uuid="94a51e58-793d-47f0-af22-7b5d919f4ab4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiarios Directos :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="120" width="90" height="20" uuid="d97fab2f-c92b-4f07-b7d3-f2592e5cadfc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código de SNIP :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="120" width="140" height="19" uuid="e96a145f-e199-442d-99ec-9487f8cf26f3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigo_snip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="139" width="130" height="20" uuid="4efcd3cc-c292-46f5-b399-cc338f52f64f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigo_proyecto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="160" width="360" height="50" uuid="18a8a404-22d0-49c5-9a9b-bf744acab372"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_pip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="210" width="160" height="19" uuid="0220893e-4d3b-4cfb-98f4-1df308a9a9bf"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{presupuesto_viabilidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="230" width="160" height="19" uuid="f36ac469-fb1a-4114-ba3e-b96b2a03b372"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{consultor_expediente_tecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="250" width="360" height="19" uuid="b0e8db4f-5ba8-4ccd-a688-f0b6892f51be"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{beneficiarios_directos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="10" y="290" width="540" height="20" forecolor="#002499" uuid="d506539f-0ee7-4397-b0ff-addaeb790a44"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valorizaciones por Contrato]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="280" width="550" height="1" uuid="73be3da7-37cb-4e63-8c82-9de047d5b213"/>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="25">
+			<textField>
+				<reportElement x="40" y="0" width="80" height="20" uuid="32207ff8-ef1b-4381-83d5-a1289fda798d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{periodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="0" width="90" height="20" uuid="3ada3536-772f-4f25-aa5a-74a6692e1e56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorizacion_programada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="0" width="100" height="20" uuid="1ac64db0-2ca9-4c3e-8c79-a2ed3bc26cf3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorizacion_ejecutada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="98" height="20" uuid="15d9078a-e656-4083-82a2-10a234e1de0a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorizacion_acumulada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="0" width="90" height="20" uuid="946d62f1-c894-45c1-8b9f-14d0647f9073"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{porcentaje_valorizado_acumulado}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="40" y="0" width="459" height="1" uuid="3da4e482-2fbc-4cea-816e-f99687bf7a36"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="450" y="8" width="100" height="20" uuid="c64e3524-562e-48fe-a049-5c589ba74d4d"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="32" splitType="Stretch"/>
+	</summary>
+</jasperReport>

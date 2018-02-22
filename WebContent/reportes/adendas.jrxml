@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="adendas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c718af64-170a-49f0-bd28-c0878afc2406">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MysqlConnection"/>
+	<parameter name="codigo_snip" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select
+	psi.item_descripcion,
+	cpsi.id_contrato_proceso_seleccion_item,
+	cpsi.numero_contrato,
+	a.id_adenda,
+	a.adenda_descripcion,
+	a.fecha_suscripcion,
+	a.plazo_otorgado,
+	a.motivo_generado
+from
+	datos_proyecto as dp, 
+	proceso_seleccion as ps,
+	proceso_seleccion_item as psi,
+	contrato_proceso_seleccion_item as cpsi,
+	adenda as a
+where 
+	dp.id_proyecto = ps.id_proyecto and
+	ps.id_proceso_seleccion = psi.id_proceso_seleccion and
+	psi.id_proceso_seleccion_item = cpsi.id_proceso_seleccion_item and
+	cpsi.id_contrato_proceso_seleccion_item = a.id_contrato_proceso_seleccion_item and
+	dp.activo = 1 and ps.activo = 1 and psi.activo = 1 and cpsi.activo = 1 and a.activo = 1 and
+	dp.codigo_snip =  $P{codigo_snip}  and ps.proceso_seleccion_pertenencia = 3]]>
+	</queryString>
+	<field name="item_descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="item_descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proceso_seleccion_item"/>
+	</field>
+	<field name="numero_contrato" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numero_contrato"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="contrato_proceso_seleccion_item"/>
+	</field>
+	<field name="adenda_descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="adenda_descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="adenda"/>
+	</field>
+	<field name="fecha_suscripcion" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_suscripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="adenda"/>
+	</field>
+	<field name="plazo_otorgado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="plazo_otorgado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="adenda"/>
+	</field>
+	<group name="item_descripcion">
+		<groupExpression><![CDATA[$F{item_descripcion}]]></groupExpression>
+	</group>
+	<group name="numero_contrato">
+		<groupExpression><![CDATA[$F{numero_contrato}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="260" height="19" uuid="2e5a4340-4386-40ec-987b-d5dc71fa13af">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="90f8bba0-4f78-40dc-91b9-f3a802d00e32"/>
+				</reportElement>
+				<text><![CDATA[adenda_descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="100" height="18" uuid="f85e83e3-765d-49f6-a88a-e3c711e90654">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d9e5fc1-e171-4bd6-b354-b948b7ca993c"/>
+				</reportElement>
+				<text><![CDATA[fecha_suscripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="100" height="18" uuid="854bcbe1-110f-4b99-a999-4942c12f69d5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb0aeb4d-6cae-410f-84e7-ee01925434b1"/>
+				</reportElement>
+				<text><![CDATA[plazo_otorgado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="260" height="30" uuid="ecb4c498-eade-409a-b280-7603a17bbbb9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="90f8bba0-4f78-40dc-91b9-f3a802d00e32"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{adenda_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="100" height="30" uuid="314b92cc-e475-4a6d-a114-1fa178ec7ef7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d9e5fc1-e171-4bd6-b354-b948b7ca993c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fecha_suscripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="100" height="30" uuid="bd6b8e8c-bad0-4e08-a276-141aaee1f6e3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb0aeb4d-6cae-410f-84e7-ee01925434b1"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{plazo_otorgado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

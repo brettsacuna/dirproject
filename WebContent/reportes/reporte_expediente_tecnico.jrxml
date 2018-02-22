@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_expediente_tecnico" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="594df2b9-1238-4b69-9abb-9c7658545f4f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MysqlConnection"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="codigo_snip" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select 
+datos_proyecto.codigo_snip, 
+datos_proyecto.codigo_proyecto, 
+datos_proyecto.nombre_pip, 
+datos_proyecto.presupuesto_viabilidad, 
+datos_proyecto.consultor_preinversion, 
+datos_proyecto.consultor_expediente_tecnico, 
+datos_proyecto.beneficiarios_directos,
+expediente_tecnico.item_descripcion,
+expediente_tecnico.informe_tecnico_modificaciones_etapa_inversion,
+expediente_tecnico.monto_informe_tecnico_etapa_inversion,
+date_format(expediente_tecnico.fecha_informe_tecnico_etapa_inversion, '%d/%m/%Y') as fecha_informe_tecnico_etapa_inversion,
+expediente_tecnico.numero_proceso_expediente_tecnico,
+expediente_tecnico.valor_referencial,
+(case when expediente_tecnico.modalidad_contratacion = 1 then 
+'Administración Directa' else 'Proceso de Selección' end) as modalidad,
+date_format(expediente_tecnico.fecha_presupuesto_base,'%d/%m/%Y')fecha_presupuesto_base,
+expediente_tecnico.contratista_adjudicado,
+expediente_tecnico.ruc_contratista_adjudicado,
+date_format(expediente_tecnico.fecha_otorgamiento, '%d/%m/%Y') as fecha_otorgamiento,
+expediente_tecnico.numero_contrato,
+date_format(expediente_tecnico.fecha_firma_contrato,'%d/%m/%Y') as fecha_firma_contrato,
+expediente_tecnico.plazo_ejecucion_expediente_tecnico,
+(case when expediente_tecnico.tipo_ejecucion = 1 then 
+'Administración Directa' else 'Proceso de Selección' end) as tipo_ejecucion
+
+from
+	datos_proyecto, expediente_tecnico
+where 
+	datos_proyecto.id_proyecto = expediente_tecnico.id_proyecto and
+    datos_proyecto.activo = 1 and
+    expediente_tecnico.activo = 1 and
+	codigo_snip =  $P{codigo_snip}]]>
+	</queryString>
+	<field name="codigo_snip" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codigo_snip"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="codigo_proyecto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codigo_proyecto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="nombre_pip" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombre_pip"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="presupuesto_viabilidad" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="presupuesto_viabilidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="consultor_preinversion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="consultor_preinversion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="consultor_expediente_tecnico" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="consultor_expediente_tecnico"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="beneficiarios_directos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="beneficiarios_directos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="datos_proyecto"/>
+	</field>
+	<field name="item_descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="item_descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="expediente_tecnico"/>
+	</field>
+	<field name="informe_tecnico_modificaciones_etapa_inversion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="informe_tecnico_modificaciones_etapa_inversion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="expediente_tecnico"/>
+	</field>
+	<field name="monto_informe_tecnico_etapa_inversion" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="monto_informe_tecnico_etapa_inversion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="expediente_tecnico"/>
+	</field>
+	<field name="fecha_informe_tecnico_etapa_inversion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_informe_tecnico_etapa_inversion"/>
+	</field>
+	<field name="numero_proceso_expediente_tecnico" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numero_proceso_expediente_tecnico"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="expediente_tecnico"/>
+	</field>
+	<field name="valor_referencial" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="valor_referencial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="expediente_tecnico"/>
+	</field>
+	<field name="modalidad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="modalidad"/>
+	</field>
+	<field name="fecha_presupuesto_base" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_presupuesto_base"/>
+	</field>
+	<field name="contratista_adjudicado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="contratista_adjudicado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="expediente_tecnico"/>
+	</field>
+	<field name="ruc_contratista_adjudicado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ruc_contratista_adjudicado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="expediente_tecnico"/>
+	</field>
+	<field name="fecha_otorgamiento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_otorgamiento"/>
+	</field>
+	<field name="numero_contrato" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numero_contrato"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="expediente_tecnico"/>
+	</field>
+	<field name="fecha_firma_contrato" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_firma_contrato"/>
+	</field>
+	<field name="plazo_ejecucion_expediente_tecnico" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="plazo_ejecucion_expediente_tecnico"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="expediente_tecnico"/>
+	</field>
+	<field name="tipo_ejecucion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tipo_ejecucion"/>
+	</field>
+	<group name="nombre_pip">
+		<groupExpression><![CDATA[$F{nombre_pip}]]></groupExpression>
+	</group>
+	<group name="item_descripcion">
+		<groupExpression><![CDATA[$F{item_descripcion}]]></groupExpression>
+	</group>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{item_descripcion}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<line>
+					<reportElement x="2" y="4" width="550" height="1" uuid="8fc73a52-e187-4b4f-83f9-7493afc9fed7"/>
+				</line>
+				<staticText>
+					<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="21" y="10" width="60" height="13" uuid="d36bcd57-5266-45af-931a-efa7b571718b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ítem:]]></text>
+				</staticText>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" x="81" y="10" width="455" height="14" uuid="976c6d19-a797-4a5b-b115-d082fed10108"/>
+					<textElement verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{item_descripcion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="276" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="10" width="110" height="50" uuid="3f202d94-edda-4c9c-8db1-0e6b15b07617"/>
+				<imageExpression><![CDATA["logo-itp.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="140" y="30" width="400" height="49" forecolor="#000099" uuid="17572aed-fbb3-4ee6-8c90-730110c79065"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Datos del Expediente Técnico]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="422" y="80" width="118" height="20" uuid="227bbef7-10e5-47f9-96a6-865d71cc8bad"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="110" width="550" height="1" uuid="f6568987-1939-4362-a451-8bf82c0ef699"/>
+			</line>
+			<staticText>
+				<reportElement x="91" y="120" width="90" height="20" uuid="ed54cd06-c6a7-4f08-81ac-9ec15e183d93"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código de SNIP :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="140" width="110" height="20" uuid="c68faadc-72f8-44de-87a2-e5435d9b1373"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código del Proyecto :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="160" width="90" height="20" uuid="9b2a3eba-96ed-4df5-bd8d-03158de70d5c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre del PIP :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="210" width="140" height="20" uuid="779c10bf-7b8a-465f-a4f5-8f6f8491b187"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presupuesto de Viabilidad :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="230" width="160" height="20" uuid="69fdd992-15d9-4608-994f-264e43c327dd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consultor Expediente Técnico :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="250" width="120" height="20" uuid="faf7e7c5-68e7-44f4-9180-2c144446976a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiarios Directos :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="120" width="345" height="20" uuid="3f8393a7-9175-4e84-b169-64ecce3f502a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigo_snip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="140" width="344" height="20" uuid="d013db96-6cb0-4c32-8bc9-a073cab7d8d9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigo_proyecto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="160" width="345" height="50" uuid="d57057ba-c231-4e59-b1b1-a11346b85ca0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_pip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="210" width="344" height="20" uuid="4bea95f8-a8e5-40e4-8dfd-8ef9dc0ba04c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{presupuesto_viabilidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="230" width="344" height="20" uuid="51ceb929-90f4-47f3-bab1-509aedf3d0c6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{consultor_expediente_tecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="250" width="344" height="20" uuid="78704a34-871a-4d90-b5b4-e882189713cd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{beneficiarios_directos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="292" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="10" width="264" height="30" uuid="f9835e64-f70a-4607-a417-749b9ec5dcc7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e2003f73-4b1d-48bf-9d36-75aaa9a42198"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{informe_tecnico_modificaciones_etapa_inversion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="80" y="10" width="180" height="30" uuid="9ef1b9ef-39e6-4e64-a4b7-56bbb1e41575">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e2003f73-4b1d-48bf-9d36-75aaa9a42198"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Informe Técnico de Modificaciones en Etapa de Inversión:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="40" width="264" height="30" uuid="5e955e07-7861-42c8-91bc-2273e0767ac9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b35a81d9-553a-4cf1-876c-457a35675d11"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{monto_informe_tecnico_etapa_inversion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="40" width="180" height="30" uuid="26182c66-6d7e-43f5-902f-fc68df103903">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b35a81d9-553a-4cf1-876c-457a35675d11"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Monto del Informe Técnico:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="70" width="264" height="20" uuid="38f09e88-f7f8-4452-b4c4-a845a303f2ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="131333a0-be5a-4edc-bbd7-d5ee4cc11837"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_informe_tecnico_etapa_inversion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="70" width="180" height="20" uuid="07e069e8-f167-4ece-9b91-de5bb7dc9b01">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="131333a0-be5a-4edc-bbd7-d5ee4cc11837"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha del Informe Técnico:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="90" width="264" height="20" uuid="21a5d01c-887e-4132-afcc-b56abaa4ed1c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bca1479b-71d6-4d70-a29b-c008af93569e"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numero_proceso_expediente_tecnico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="90" width="180" height="20" uuid="6d2937b7-bece-40fb-a1ba-630fee685e99">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bca1479b-71d6-4d70-a29b-c008af93569e"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Numero del Proceso:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="110" width="264" height="20" uuid="178b13de-0543-4698-ad14-79525a6824da">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="82c9fa36-b9fe-49e5-b553-ed129c1edb09"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor_referencial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="110" width="180" height="20" uuid="3da82527-a0eb-4a04-bf54-92354669b389">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="82c9fa36-b9fe-49e5-b553-ed129c1edb09"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Valor Referencial:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="130" width="264" height="20" uuid="440192f2-8b0b-4ebf-8428-4a635069b745">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d38c9582-7add-4ddb-9995-065f203a6d5e"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{modalidad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="127" width="180" height="20" uuid="5cb2a3ca-da96-4e6b-87a2-51e099e7788d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d38c9582-7add-4ddb-9995-065f203a6d5e"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Modalidad:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="148" width="264" height="22" uuid="8ddc6ca9-ad34-481e-a27c-39cbdeebdb0a"/>
+				<textFieldExpression><![CDATA[$F{fecha_presupuesto_base}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="147" width="180" height="23" uuid="cd8f4c9e-8c23-4f85-8158-e1c7043d9393"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha del Presupuesto Base:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="174" width="264" height="26" uuid="9f41a8b8-f6d4-4dc7-acca-8b91c7c98248"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{contratista_adjudicado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="174" width="180" height="26" uuid="00243f81-c94d-42a0-b14b-c6c395570d9b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Contratista Adjudicado:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="200" width="264" height="20" uuid="ad64711a-b85f-471f-84de-64b27d4b4cac"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ruc_contratista_adjudicado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="200" width="180" height="20" uuid="ce9040e2-2f6f-4a3f-b83e-78f0b51453a9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[RUC Contratista:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="220" width="264" height="20" uuid="46f7970a-5749-4e12-b1b0-c17c63e0b4a6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numero_contrato}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="221" width="180" height="19" uuid="c7cdaf3f-7b1f-416a-be29-398cf9e33028"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Número de Contrato:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="240" width="264" height="20" uuid="bcaeecfb-7f1b-432b-aed7-4c8ee31cf7e9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_firma_contrato}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="240" width="180" height="20" uuid="54faf406-ba38-429c-b343-337e50c2ad9e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha Forma del Contrato:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="260" width="264" height="22" uuid="df7a7db7-5eeb-479b-bb79-cff68a81ac0b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{plazo_ejecucion_expediente_tecnico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="260" width="220" height="22" uuid="5f92f74e-f257-4aed-b814-0207802ba39d"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Plazo de Ejecución del Expediente Técnico:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="0" width="550" height="1" uuid="6a0c54ad-2313-494c-8d29-e2b5c8f086eb"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="460" y="3" width="92" height="25" uuid="f73d7a9f-42a9-45ca-b671-e7f3b3117017"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
